@@ -92,6 +92,12 @@ class ViewController: UIViewController {
     
     
     @IBAction func tappedLock(_ sender: Any) {
+        countA = 0
+        countB = 0
+        countC = 0
+        titleDisplay.text = "KeyLock"
+        answer = Int.random(in: 0..<999)
+        lockButton.isHidden = true
     }
     
     @IBAction func tappedOpen(_ sender: Any) {
@@ -99,8 +105,14 @@ class ViewController: UIViewController {
         let checkNumber = (countA * 100) + (countB * 10) + countC
         if checkNumber == answer {
             titleDisplay.text = "Open!"
+             hintText = "Congratulation"
             lockButton.isHidden = true
             openButton.isHidden = true
+            countDown = 10
+        } else if checkNumber > answer {
+            hintText = "BIGGER"
+        } else {
+            hintText = "SMALLER"
         }
     }
     
@@ -108,6 +120,14 @@ class ViewController: UIViewController {
         countADisplay.text = String(countA)
         countBDisplay.text = String(countB)
         countCDisplay.text = String(countC)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ResultSegue" {
+            let nextview = segue.destination as! SecondViewController
+            nextview.countDoun = countDown
+            nextview.hintText = hintText
+        }
     }
 }
 
