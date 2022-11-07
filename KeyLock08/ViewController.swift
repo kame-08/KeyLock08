@@ -34,12 +34,21 @@ class ViewController: UIViewController {
     var countDown = 10
     var hintText = ""
     
+    @IBOutlet weak var leadingConst: NSLayoutConstraint!
+    @IBOutlet weak var tradingConst: NSLayoutConstraint!
+    
     //画面の生成が終わった後に呼び出される
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         answer = Int.random(in: 0..<999)
         lockButton.isHidden = true
+        
+        //画面の横幅
+        let width = UIScreen.main.bounds.width / 5
+        leadingConst.constant = width
+        tradingConst.constant = width
+        
     }
 
     @IBAction func tappedAddA(_ sender: UIButton) {
@@ -101,6 +110,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func tappedOpen(_ sender: Any) {
+
+    }
+    
+    @IBAction func tappedOpend(_ sender: Any) {
         countDown -= 1
         let checkNumber = (countA * 100) + (countB * 10) + countC
         if checkNumber == answer {
